@@ -1,0 +1,68 @@
+@import './fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: theme('fontFamily.sans');
+  }
+}
+
+/*
+ * Иконки мессенджеров (Telegram/WhatsApp/Viber, src/icons/*.svg) вставлены
+ * в разметку как есть — оригиналы ссылаются на классы без цвета (внешний
+ * CSS источника не приложен). Ниже — реконструкция под фирменные цвета
+ * (подложка = бренд-цвет, сам значок — белый), поправь значения, если
+ * есть точные цвета из оригинала.
+ */
+
+/* Telegram */
+.stop-i4p9vs72k {
+  stop-color: #2aabee;
+}
+.stop-iyoa0j75u {
+  stop-color: #229ed9;
+}
+.stop-iinyt5n6q {
+  stop-color: #eff7fc;
+}
+.stop-i3hr5i8cj {
+  stop-color: #c8daea;
+}
+.path-i6o3677ab {
+  fill: url(#ikomg47rb-a);
+}
+.path-i7kvnjytt,
+.path-it7f6gjgt {
+  fill: none;
+  stroke: url(#ikomg47rb-b);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.path-i7dqwoosg {
+  fill: #ffffff;
+}
+
+/* WhatsApp */
+.path-iq447hd39 {
+  fill: #25d366;
+}
+.path-iu0m505qc {
+  fill: #ffffff;
+}
+.path-i4ldsszkp {
+  fill: #25d366;
+}
+
+/* Viber */
+.path-iwcktmr05 {
+  fill: #7360f2;
+}
+.path-ifb1crdbv,
+.path-i8r9pdnxn,
+.path-i4wwi9sgn {
+  fill: #ffffff;
+}
