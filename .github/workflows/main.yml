@@ -1,11 +1,10 @@
 name: Build and deploy to Pages
 
-# Запускается при каждом пуше в main
+# Только вручную — во вкладке Actions репозитория → выбрать этот воркфлоу → Run workflow.
+# Автозапуска на push нет (сайт пока тестовый, см. noindex в index.html) — деплой
+# нужен только тогда, когда сознательно решили опубликовать текущее состояние.
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: # позволяет запускать вручную из вкладки Actions
+  workflow_dispatch:
 
 # Нужно для официального деплоя через GitHub Pages API (не пуш в ветку)
 permissions:

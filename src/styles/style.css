@@ -7,6 +7,14 @@
 @layer base {
   html {
     font-family: theme('fontFamily.sans');
+    /*
+     * Шапка и меню — sticky (см. header-height.js, --header-h/--nav-h).
+     * Без этого при переходе по якорю (#tariffs и т.д.) заголовок секции
+     * оказывался бы под шапкой. На мобильных меню скрыто (display:none),
+     * поэтому --nav-h там сам становится 0 — отступ учитывает только шапку.
+     * +16px — небольшой воздух, чтобы заголовок не упирался в самый край.
+     */
+    scroll-padding-top: calc(var(--header-h, 72px) + var(--nav-h, 56px) + 16px);
   }
 }
 
