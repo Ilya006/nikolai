@@ -59,3 +59,6 @@ There's a `LocalBusiness` JSON-LD block in `<head>`. Company name, phone number 
 
 ### SEO/meta files
 `public/robots.txt` and `public/sitemap.xml` are static files — Vite copies everything under `public/` verbatim to the root of `dist/` (and serves them at `/robots.txt` / `/sitemap.xml` in dev too), no build step involved. `sitemap.xml` currently lists only the homepage; add an entry per page if the site ever grows beyond one.
+
+### Deployment (GitHub Pages)
+`.github/workflows/main.yml` builds on every push to `main` and pushes `dist/` to a `build` branch via `peaceiris/actions-gh-pages` (GitHub Pages must be manually set to serve from that branch in the repo's Settings → Pages — the workflow doesn't do that part). The repo is `github.com/Ilya006/nikolai`, so Pages serves it as a **project page** at `/nikolai/`, not at the domain root. Because of that, `vite.config.js` sets `base: '/nikolai/'` **only when `command === 'build'`** (dev stays at `/`, so `npm run dev` is unaffected) — if the repo is ever renamed, or the site moves to a custom domain / user root page (`Ilya006.github.io`), that hardcoded `/nikolai/` needs to change too, or every asset URL in the production build breaks.
