@@ -1,20 +1,26 @@
 name: Build and deploy to Pages
 
-# Запускается при каждом пуше в main (можно сузить до нужных папок через paths:)
+# Запускается при каждом пуше в main
 on:
   push:
     branches:
       - main
   workflow_dispatch: # позволяет запускать вручную из вкладки Actions
 
-# Нужно для того, чтобы Action мог пушить в build-ветку
+# Нужно для официального деплоя через GitHub Pages API (не пуш в ветку)
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Не даёт двум деплоям выполняться одновременно
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -32,16 +38,24 @@ jobs:
         run: npm run build
         # если у команды сборки другое имя (например, npm run build:prod) — поправь здесь
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       # ВАЖНО: укажи здесь реальную папку с результатом сборки.
       # Vite/Vue/большинство современных сборщиков -> dist
       # Create React App -> build
-      - name: Deploy build to "build" branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: build
-          force_orphan: true # держит историю build-ветки плоской, без старых билдов
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy build from ${{ github.sha }}'
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
