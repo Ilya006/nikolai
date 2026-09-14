@@ -54,3 +54,8 @@ Self-hosted variable Montserrat, loaded via `@font-face` in `src/styles/fonts.cs
 
 ### Structured data & content placeholders
 There's a `LocalBusiness` JSON-LD block in `<head>`. Company name, phone number (`8 (800) 888-88-88` / `+78008888888`), email (`info@example.com`), messenger usernames (`t.me/username`), and the "8 years / 12 000+ jobs" stats in `#about` are **all placeholders**, marked with `TODO` comments where they appear. Don't treat any of them as real data, and don't invent a fake street address (this was deliberate — see the `TODO` next to the JSON-LD `address` block) — only the city/region are filled in.
+
+`https://example.com` is used as a placeholder domain in `<link rel="canonical">`, the Open Graph/Twitter `og:url`, and in `public/robots.txt` / `public/sitemap.xml` (the `Sitemap:` line and `<loc>`) — all four need updating together once the real domain is known. `og:image`/`twitter:image` point at a picsum placeholder too, marked `TODO` — swap for a real branded 1200×630 image before launch. `public/favicon.svg` is a plain letter-mark ("Э" on brand green), not a real logo.
+
+### SEO/meta files
+`public/robots.txt` and `public/sitemap.xml` are static files — Vite copies everything under `public/` verbatim to the root of `dist/` (and serves them at `/robots.txt` / `/sitemap.xml` in dev too), no build step involved. `sitemap.xml` currently lists only the homepage; add an entry per page if the site ever grows beyond one.
